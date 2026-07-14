@@ -1,36 +1,61 @@
 name: CI
+
 on:
   push:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
   pull_request:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
+
 jobs:
   api-tests:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  defaults:
-    run:
-      working-directory: apps/api
+    defaults:
+      run:
+        working-directory: apps/api
 
-  env:
-    PYTHONPATH: ${{ github.workspace }}/apps/api
+    env:
+      PYTHONPATH: ${{ github.workspace }}/apps/api
 
-  steps:
-    - uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: "3.12"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-    - run: pip install -r requirements.txt
+      - name: Install API dependencies
+        run: pip install -r requirements.txt
 
-    - run: pytest
+      - name: Run API tests
+        run: pytest
+
   web-build:
     runs-on: ubuntu-latest
-    defaults: {run: {working-directory: apps/web}}
+
+    defaults:
+      run:
+        working-directory: apps/web
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: {node-version: "22"}
-      - run: npm install
-      - run: npm run build
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install web dependencies
+        run: npm install
+
+      - name: Build web application
+        run: npm run build
