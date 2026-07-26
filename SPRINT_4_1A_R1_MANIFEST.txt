@@ -1,0 +1,20 @@
+SPRINT 4.1A — RELEASE 1
+
+Nouveaux fichiers :
+apps/web/components/site-header.tsx
+apps/web/components/trust-strip.tsx
+apps/web/components/product-card-premium.tsx
+apps/web/components/ui/icons.tsx
+apps/web/components/ui/luxury-badge.tsx
+apps/web/components/ui/luxury-button.tsx
+apps/web/components/ui/section-heading.tsx
+docs/sprint-4-1a-release-1.md
+INSTALL_SPRINT_4_1A_R1.md
+
+Fichiers modifiés :
+apps/web/app/globals.css
+apps/web/app/page.tsx
+apps/web/app/catalogue/page.tsx
+apps/web/components/catalogue-client.tsx
+apps/web/components/cart-button.tsx
+apps/web/components/footer.tsx
