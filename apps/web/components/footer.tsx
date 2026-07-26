@@ -1,1 +1,35 @@
-export function Footer(){return <footer className="bg-[#0d0d0d] py-16 text-white"><div className="container-inspire grid gap-10 md:grid-cols-4"><div className="md:col-span-2"><p className="serif text-3xl tracking-[0.2em]">INSPIRE</p><p className="mt-4 max-w-md text-sm leading-7 text-white/65">Des fragrances pensées pour révéler une émotion, un souvenir et une présence.</p></div><div><p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#c9a063]">Explorer</p><p className="text-sm text-white/70">Homme<br/>Femme<br/>Mixte</p></div><div><p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#c9a063]">Aide</p><p className="text-sm text-white/70">Livraison<br/>Retours<br/>Contact</p></div></div></footer>}
+import Link from "next/link";
+
+export function Footer() {
+  return (
+    <footer className="luxury-footer">
+      <div className="container-inspire luxury-footer__top">
+        <div className="luxury-footer__brand">
+          <p className="site-logo site-logo--footer">INSPIRE<span>Maison de parfums</span></p>
+          <p>Des fragrances choisies pour révéler une émotion, accompagner un instant et laisser une empreinte.</p>
+        </div>
+        <div>
+          <p className="luxury-footer__title">Collections</p>
+          <Link href="/catalogue?collection=Femme">Pour elle</Link>
+          <Link href="/catalogue?collection=Homme">Pour lui</Link>
+          <Link href="/catalogue?collection=Mixte">À partager</Link>
+        </div>
+        <div>
+          <p className="luxury-footer__title">La maison</p>
+          <Link href="/#histoire">Notre histoire</Link>
+          <Link href="/catalogue">Toutes les fragrances</Link>
+          <span>Conseil olfactif</span>
+        </div>
+        <div>
+          <p className="luxury-footer__title">Service</p>
+          <span>Livraison France & Gabon</span>
+          <span>Contact</span>
+          <span>Retours</span>
+        </div>
+      </div>
+      <div className="container-inspire luxury-footer__bottom">
+        <span>© 2026 INSPIRE</span><span>L’inspiration sur la peau.</span>
+      </div>
+    </footer>
+  );
+}

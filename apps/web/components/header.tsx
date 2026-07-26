@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CartButton } from "./cart-button";
 
 export function Header() {
   return (
@@ -23,9 +24,9 @@ export function Header() {
           </a>
         </nav>
 
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-5 text-sm">
           <button className="transition duration-300 hover:text-[#ead9b6]">Compte</button>
-          <button className="transition duration-300 hover:text-[#ead9b6]">Panier</button>
+          <CartButton />
         </div>
       </div>
     </header>

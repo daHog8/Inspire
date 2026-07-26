@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ProductCardPremium } from "./product-card-premium";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -94,118 +95,25 @@ export function CatalogueClient() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-[#9a7242]">
-            Sélection active
-          </p>
-          <h2 className="serif mt-2 text-3xl">{collectionTitle}</h2>
-        </div>
-
-        {collection && (
-          <Link
-            href="/catalogue"
-            className="border-b border-black pb-1 text-xs uppercase tracking-[0.18em] transition hover:text-[#9a7242]"
-          >
-            Afficher tout le catalogue
-          </Link>
-        )}
+      <div className="catalogue-toolbar-heading">
+        <div><p className="eyebrow">Sélection active</p><h2>{collectionTitle}</h2></div>
+        {collection ? <Link href="/catalogue" className="text-link">Effacer le filtre</Link> : null}
       </div>
 
-      <form
-        onSubmit={handleSearch}
-        className="mb-10 grid gap-4 border-y border-black/10 py-6 md:grid-cols-[1fr_220px_220px_auto]"
-      >
-        <input
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Rechercher un parfum ou une famille..."
-          className="border border-black/20 bg-white px-4 py-3 outline-none transition focus:border-black"
-        />
-
-        <select
-          value={collection}
-          onChange={(event) => setCollection(event.target.value)}
-          className="border border-black/20 bg-white px-4 py-3"
-          aria-label="Filtrer par collection"
-        >
-          <option value="">Toutes les collections</option>
-          <option value="Femme">Femme</option>
-          <option value="Homme">Homme</option>
-          <option value="Mixte">Mixte</option>
-        </select>
-
-        <select
-          value={sort}
-          onChange={(event) => setSort(event.target.value)}
-          className="border border-black/20 bg-white px-4 py-3"
-          aria-label="Trier le catalogue"
-        >
-          <option value="name">Nom</option>
-          <option value="price_asc">Prix croissant</option>
-          <option value="price_desc">Prix décroissant</option>
-        </select>
-
-        <button className="bg-black px-6 py-3 text-xs uppercase tracking-[0.2em] text-white transition duration-300 hover:bg-[#9a7242]">
-          Rechercher
-        </button>
+      <form onSubmit={handleSearch} className="catalogue-filters">
+        <label className="catalogue-field catalogue-field--search"><span>Rechercher</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Nom, famille olfactive…" /></label>
+        <label className="catalogue-field"><span>Collection</span><select value={collection} onChange={(event) => setCollection(event.target.value)} aria-label="Filtrer par collection"><option value="">Toutes</option><option value="Femme">Femme</option><option value="Homme">Homme</option><option value="Mixte">Mixte</option></select></label>
+        <label className="catalogue-field"><span>Trier par</span><select value={sort} onChange={(event) => setSort(event.target.value)} aria-label="Trier le catalogue"><option value="name">Nom</option><option value="price_asc">Prix croissant</option><option value="price_desc">Prix décroissant</option></select></label>
+        <button className="catalogue-search-button">Rechercher →</button>
       </form>
 
-      <p className="mb-8 text-sm text-neutral-500">
-        {total} parfum{total > 1 ? "s" : ""}
-      </p>
+      <div className="catalogue-result-line"><span>{total} parfum{total > 1 ? "s" : ""}</span><span>France · Gabon</span></div>
 
-      {loading ? (
-        <p className="py-20 text-center">Chargement du catalogue…</p>
-      ) : error ? (
-        <p className="py-20 text-center text-red-700">{error}</p>
-      ) : products.length === 0 ? (
-        <div className="border border-black/10 bg-white py-20 text-center">
-          <p className="serif text-3xl">Aucun parfum trouvé.</p>
-          <p className="mt-3 text-neutral-500">
-            Modifiez les filtres ou affichez tout le catalogue.
-          </p>
-        </div>
+      {loading ? <div className="catalogue-status">Chargement du catalogue…</div> : error ? <div className="catalogue-status catalogue-status--error">{error}</div> : products.length === 0 ? (
+        <div className="catalogue-empty"><p>Aucun parfum trouvé.</p><span>Modifiez les filtres ou affichez tout le catalogue.</span></div>
       ) : (
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <article key={product.id} className="group">
-              <Link href={`/products/${product.slug}`} className="block">
-                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#ead9b6] to-[#b48250]">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative h-64 w-40 rounded-t-[4rem] border border-white/60 bg-white/30 shadow-2xl backdrop-blur-sm transition duration-500 group-hover:-translate-y-3 group-hover:scale-[1.03]">
-                      <div className="absolute left-1/2 top-[-30px] h-12 w-16 -translate-x-1/2 bg-black/85" />
-                      <div className="absolute inset-x-4 bottom-10 border border-black/30 bg-white/70 p-4 text-center">
-                        <p className="serif text-xl tracking-widest">INSPIRE</p>
-                        <p className="mt-2 text-[10px] uppercase tracking-[0.2em]">
-                          {product.name}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <span className="absolute left-4 top-4 bg-white/85 px-3 py-1 text-[11px] uppercase tracking-widest">
-                    {product.collection}
-                  </span>
-                </div>
-
-                <p className="mt-5 text-xs uppercase tracking-[0.2em] text-neutral-500">
-                  {product.family}
-                </p>
-
-                <h3 className="serif mt-2 text-3xl transition duration-300 group-hover:text-[#9a7242]">
-                  {product.name}
-                </h3>
-
-                <div className="mt-3 flex items-center justify-between">
-                  <strong>{product.price.toFixed(2).replace(".", ",")} €</strong>
-                  <span className="text-sm text-neutral-500">
-                    {product.volume_ml} ml
-                  </span>
-                </div>
-              </Link>
-            </article>
-          ))}
+        <div className="premium-product-grid premium-product-grid--catalogue">
+          {products.map((product, index) => <ProductCardPremium key={product.id} priority={index < 3} product={{ id: product.id, slug: product.slug, name: product.name, collection: product.collection, family: product.family, price: product.price, volume_ml: product.volume_ml, image: product.images?.[0]?.url, notes: [...product.top_notes.slice(0, 1), ...product.heart_notes.slice(0, 1), ...product.base_notes.slice(0, 1)], quantity: product.inventory?.quantity ?? null }} />)}
         </div>
       )}
     </div>

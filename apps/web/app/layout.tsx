@@ -1,5 +1,19 @@
 import "./globals.css";
-export const metadata = { title: "INSPIRE", description: "L'inspiration sur la peau." };
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="fr"><body>{children}</body></html>;
+import { CartProvider } from "../context/cart-context";
+
+export const metadata = {
+  title: "INSPIRE",
+  description: "L'inspiration sur la peau.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="fr">
+      <body>
+        <CartProvider>{children}</CartProvider>
+      </body>
+    </html>
+  );
 }

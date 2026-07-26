@@ -1,160 +1,91 @@
 import Link from "next/link";
 
 import { Footer } from "../components/footer";
-import { Header } from "../components/header";
-import { ProductCard } from "../components/product-card";
+import { ProductCardPremium } from "../components/product-card-premium";
+import { SiteHeader } from "../components/site-header";
+import { TrustStrip } from "../components/trust-strip";
+import { LuxuryButton } from "../components/ui/luxury-button";
+import { SectionHeading } from "../components/ui/section-heading";
 import { featuredProducts } from "../data/products";
 
 const collections = [
-  {
-    title: "Pour elle",
-    text: "Florales, lumineuses et enveloppantes.",
-    tone: "bg-[#ead9b6]",
-    href: "/catalogue?collection=Femme",
-  },
-  {
-    title: "Pour lui",
-    text: "Boisées, fraîches et affirmées.",
-    tone: "bg-[#c9a063]",
-    href: "/catalogue?collection=Homme",
-  },
-  {
-    title: "À partager",
-    text: "Libres, inattendues et sans frontière.",
-    tone: "bg-[#d8d2c4]",
-    href: "/catalogue?collection=Mixte",
-  },
+  { title: "Élégance florale", label: "Pour elle", text: "Rose, jasmin et muscs délicats composent des sillages lumineux.", href: "/catalogue?collection=Femme", className: "collection-card--rose" },
+  { title: "Caractère boisé", label: "Pour lui", text: "Des bois profonds, des épices et une fraîcheur parfaitement maîtrisée.", href: "/catalogue?collection=Homme", className: "collection-card--wood" },
+  { title: "Signatures libres", label: "À partager", text: "Des créations sans frontière, pensées pour être portées selon l’envie.", href: "/catalogue?collection=Mixte", className: "collection-card--sage" },
 ];
 
 export default function HomePage() {
   return (
     <main>
-      <section className="relative min-h-[92vh] overflow-hidden bg-[#171512] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(201,160,99,0.42),transparent_30%),linear-gradient(120deg,#0d0d0d_30%,#32261b)]" />
-        <div className="animate-float-soft absolute -right-24 top-24 h-[620px] w-[420px] rounded-[50%] border border-white/20 bg-white/5 shadow-2xl backdrop-blur-sm" />
-
-        <Header />
-
-        <div className="container-inspire relative z-10 flex min-h-[92vh] items-center pt-20">
-          <div className="max-w-3xl py-24">
-            <p className="animate-fade-up mb-6 text-xs uppercase tracking-[0.35em] text-[#ead9b6]">
-              Maison de parfums
-            </p>
-
-            <h1 className="animate-fade-up-delay serif text-6xl leading-[0.95] md:text-8xl">
-              L’inspiration
-              <br />
-              sur la peau.
-            </h1>
-
-            <p className="animate-fade-up-delay-2 mt-8 max-w-xl text-lg leading-8 text-white/70">
-              Trouvez la fragrance qui raconte votre histoire et laisse une empreinte inoubliable.
-            </p>
-
-            <div className="animate-fade-up-delay-2 mt-10 flex flex-wrap gap-4">
-              <Link
-                href="/catalogue"
-                className="bg-white px-7 py-4 text-xs uppercase tracking-[0.2em] text-black transition duration-300 hover:-translate-y-1 hover:bg-[#ead9b6]"
-              >
-                Découvrir le catalogue
-              </Link>
-
-              <a
-                href="#histoire"
-                className="border border-white/50 px-7 py-4 text-xs uppercase tracking-[0.2em] transition duration-300 hover:-translate-y-1 hover:border-white hover:bg-white/10"
-              >
-                Notre univers
-              </a>
-            </div>
+      <section className="luxury-hero">
+        <div className="luxury-hero__glow" />
+        <div className="luxury-hero__bottle" aria-hidden="true">
+          <div className="luxury-hero__bottle-cap" />
+          <div className="luxury-hero__bottle-label"><span>INSPIRE</span><small>PARIS · LIBREVILLE</small></div>
+        </div>
+        <SiteHeader theme="dark" />
+        <div className="container-inspire luxury-hero__content">
+          <p className="eyebrow eyebrow--light animate-fade-up">Nouvelle maison de parfums</p>
+          <h1 className="hero-title animate-fade-up-delay">Une fragrance.<br /><em>Votre signature.</em></h1>
+          <p className="luxury-hero__lead animate-fade-up-delay-2">Des compositions choisies pour raconter votre personnalité, disponibles en France et au Gabon.</p>
+          <div className="luxury-hero__actions animate-fade-up-delay-2">
+            <LuxuryButton href="/catalogue" variant="light">Découvrir la collection</LuxuryButton>
+            <a href="#histoire" className="text-link text-link--light">Entrer dans l’univers</a>
           </div>
         </div>
+        <div className="luxury-hero__scroll">Découvrir <span /></div>
       </section>
 
-      <section id="collections" className="py-24">
-        <div className="container-inspire">
-          <div className="mb-12 text-center">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#9a7242]">Nos univers</p>
-            <h2 className="serif mt-4 text-4xl md:text-5xl">Une fragrance pour chaque histoire</h2>
-          </div>
+      <TrustStrip />
 
-          <div className="grid gap-5 md:grid-cols-3">
-            {collections.map((collection) => (
-              <Link
-                key={collection.title}
-                href={collection.href}
-                className={`${collection.tone} group flex min-h-80 flex-col justify-end overflow-hidden p-8 transition duration-500 hover:-translate-y-2 hover:shadow-2xl`}
-              >
-                <h3 className="serif text-4xl transition duration-300 group-hover:translate-x-1">
-                  {collection.title}
-                </h3>
-                <p className="mt-3 max-w-xs text-sm leading-6">{collection.text}</p>
-                <span className="mt-6 w-fit border-b border-black pb-1 text-xs uppercase tracking-widest">
-                  Explorer
-                </span>
+      <section className="section-space">
+        <div className="container-inspire">
+          <SectionHeading eyebrow="Nos univers" title={<>Choisissez l’émotion<br />que vous voulez laisser.</>} description="Trois portes d’entrée, une même exigence : trouver une fragrance qui vous ressemble vraiment." align="center" />
+          <div className="collection-grid">
+            {collections.map((collection, index) => (
+              <Link key={collection.title} href={collection.href} className={`collection-card ${collection.className}`}>
+                <span className="collection-card__number">0{index + 1}</span>
+                <div><p>{collection.label}</p><h3>{collection.title}</h3><span className="collection-card__description">{collection.text}</span><span className="collection-card__link">Explorer la collection →</span></div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="selection" className="bg-[#f8f3eb] py-24">
+      <section id="selection" className="section-space section-tinted">
         <div className="container-inspire">
-          <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs uppercase tracking-[0.25em] text-[#9a7242]">Sélection Inspire</p>
-              <h2 className="serif mt-4 text-4xl md:text-5xl">Les signatures du moment</h2>
-            </div>
-
-            <Link
-              href="/catalogue"
-              className="text-xs uppercase tracking-[0.2em] transition duration-300 hover:text-[#9a7242]"
-            >
-              Voir toute la collection →
-            </Link>
+          <div className="section-intro-row">
+            <SectionHeading eyebrow="Sélection INSPIRE" title="Les signatures du moment" description="Des fragrances choisies pour leur caractère, leur tenue et leur capacité à devenir inoubliables." />
+            <Link href="/catalogue" className="text-link">Voir tout le catalogue</Link>
           </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="premium-product-grid">
+            {featuredProducts.map((product, index) => (
+              <ProductCardPremium key={product.id} priority={index < 2} product={{ ...product, volume_ml: 50 }} />
             ))}
           </div>
         </div>
       </section>
 
-      <section id="histoire" className="grid md:grid-cols-2">
-        <div className="min-h-[520px] bg-[radial-gradient(circle_at_center,#ead9b6,#9f7549)]" />
-
-        <div className="flex items-center bg-[#0d0d0d] px-8 py-20 text-white md:px-16">
-          <div className="max-w-xl">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#c9a063]">Notre histoire</p>
-            <h2 className="serif mt-5 text-4xl leading-tight md:text-5xl">
-              Le parfum comme source d’émotion.
-            </h2>
-            <p className="mt-7 leading-8 text-white/65">
-              Inspire est née d’une conviction : une fragrance ne complète pas seulement une tenue.
-              Elle révèle une personnalité, accompagne un instant et grave un souvenir.
-            </p>
-
-            <Link
-              href="/catalogue"
-              className="mt-8 inline-block border-b border-[#c9a063] pb-2 text-xs uppercase tracking-[0.2em] transition duration-300 hover:text-[#ead9b6]"
-            >
-              Explorer les fragrances
-            </Link>
-          </div>
+      <section id="histoire" className="brand-story">
+        <div className="brand-story__visual">
+          <div className="brand-story__rings" />
+          <p>INSPIRE</p><span>L’inspiration sur la peau</span>
+        </div>
+        <div className="brand-story__content">
+          <p className="eyebrow eyebrow--gold">La maison</p>
+          <h2 className="display-title display-title--light">Le parfum est une mémoire que l’on choisit de porter.</h2>
+          <p>INSPIRE est née d’une conviction simple : une fragrance ne complète pas seulement une tenue. Elle révèle une présence, accompagne un instant et grave un souvenir.</p>
+          <p>Notre sélection réunit des univers olfactifs accessibles, intenses et expressifs, avec une disponibilité pensée pour la France comme pour le Gabon.</p>
+          <LuxuryButton href="/catalogue" variant="gold">Explorer nos fragrances</LuxuryButton>
         </div>
       </section>
 
-      <section className="py-24 text-center">
-        <div className="container-inspire max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#9a7242]">Inspire Match</p>
-          <h2 className="serif mt-4 text-4xl md:text-5xl">Quel parfum vous ressemble ?</h2>
-          <p className="mx-auto mt-6 max-w-2xl leading-8 text-neutral-600">
-            Répondez à quelques questions et laissez notre futur conseiller olfactif vous guider vers votre signature.
-          </p>
-          <button className="mt-8 bg-black px-8 py-4 text-xs uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#9a7242]">
-            Commencer le quiz
-          </button>
+      <section className="section-space consultation-section">
+        <div className="container-inspire consultation-section__inner">
+          <p className="eyebrow">Inspire Match</p>
+          <h2 className="display-title">Votre prochain parfum<br />commence par une émotion.</h2>
+          <p>Un futur parcours guidé vous aidera à choisir selon vos goûts, vos habitudes et l’empreinte que vous souhaitez laisser.</p>
+          <LuxuryButton href="/catalogue" variant="dark">Commencer par le catalogue</LuxuryButton>
         </div>
       </section>
 
