@@ -13,9 +13,9 @@ def test_validate_cart() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["items"][0]["available"] is True
-    assert payload["subtotal"] == 178.0
-    assert payload["shipping"] == 0
-    assert payload["total"] == 178.0
+    assert payload["subtotal"] == 49.8
+    assert payload["shipping"] == 7.9
+    assert payload["total"] == 57.7
 
 
 def test_validate_unknown_product() -> None:

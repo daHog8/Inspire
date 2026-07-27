@@ -5,7 +5,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="group">
       <Link href={`/products/${product.slug}`} className="block">
-        <div className={`relative aspect-[4/5] overflow-hidden bg-gradient-to-br ${product.accent}`}>
+        <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-stone-100 via-white to-amber-50">
           <div className="absolute inset-0 bg-black/0 transition duration-500 group-hover:bg-black/5" />
 
           <div className="absolute inset-x-0 bottom-0 top-1/4 flex items-end justify-center pb-10">
